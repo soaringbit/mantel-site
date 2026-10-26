@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mantel 隱私權政策</title>
+<style>:root{color-scheme:light dark}body{font:16px/1.7 system-ui,sans-serif;max-width:760px;margin:0 auto;padding:16px}
+.t{overflow-x:auto}table{border-collapse:collapse;font-size:14px}th,td{border:1px solid #8885;padding:6px 8px;text-align:left;vertical-align:top}code{font-size:.9em}</style></head>
+<body>
+<h1>Mantel 隱私權政策（草稿）</h1>
+<p>生效日期：（上架時填寫）</p>
+<h2>一句話</h2>
+<p>Mantel 只連線到<strong>你自己指定的 NAS</strong>，沒有開發者的伺服器，不收集使用資料，沒有廣告、分析或 crash 回報 SDK。</p>
+<h2>Mantel 存在你手機上的資料</h2>
+<div class="t"><table><thead><tr><th>資料</th><th>內容</th><th>存放位置</th><th>何時刪除</th></tr></thead><tbody>
+<tr><td>NAS 網址、帳號、密碼、登入憑證 (sid)</td><td>讓 App 自動重新登入</td><td>Android 加密儲存 (Keystore)</td><td>登出時</td></tr>
+<tr><td>憑證指紋</td><td>你按「信任這台 NAS」的自簽憑證 SHA-256</td><td>同上</td><td>登出時</td></tr>
+<tr><td>播放清單</td><td>你勾選資料夾裡的相片檔名、路徑、日期</td><td>App 私有的 SQLite 資料庫</td><td>登出時或解除安裝</td></tr>
+<tr><td>縮圖與大圖暫存</td><td>從你的 NAS 下載的小工具圖片（預設高清約 1280px，可改標準 320px；看大圖時下載的高清預覽會直接當小工具圖片，不存兩份）、檢視器的預覽與原圖</td><td>App 私有資料夾 (小工具圖片與大圖暫存各有容量上限，可在設定 → 儲存空間調整，大圖暫存預設 300 MB、最多 2 GB)</td><td>設定頁「清空」、登出或解除安裝；移除資料夾時一併刪掉該資料夾照片的小工具圖片與大圖暫存</td></tr>
+<tr><td>畫質索引</td><td>哪些小工具圖片是高清的照片編號 (<code>widget_photo_quality.json</code>)</td><td>App 私有資料夾</td><td>清除暫存圖片、登出或解除安裝</td></tr>
+<tr><td>設定</td><td>外觀、輪播間隔、圖片畫質 (<code>pref_widget_quality</code>)、小工具圖片與大圖暫存上限 (<code>widget_max_cache_mb</code>、<code>viewer_max_cache_mb</code>) 等</td><td>App 私有偏好設定</td><td>解除安裝</td></tr>
+<tr><td>已選資料夾</td><td>你勾選的資料夾名稱、NAS 路徑與照片數</td><td>App 私有偏好設定</td><td>登出時</td></tr>
+<tr><td>小工具目前照片</td><td>目前顯示的縮圖路徑、照片編號與日期</td><td>App 私有偏好設定 (<code>HomeWidgetPreferences</code>)</td><td>登出時清空</td></tr>
+<tr><td>登入次數紀錄</td><td>最近幾次登入的時間點與成功與否 (不含帳號、密碼、網址)，用來限制登入頻率</td><td>App 私有偏好設定 (<code>pref_login_governor</code>)</td><td>解除安裝 (登出不清，避免登出再登入繞過限制)</td></tr>
+<tr><td>下載中的暫存檔</td><td>還沒下載完的縮圖 / 大圖 (<code>.part</code>)</td><td>同縮圖 / 大圖資料夾</td><td>下載完成後改名；殘留的超過 1 小時會被清掉，登出與清空快取時一併刪除</td></tr>
+</tbody></table></div>
+<p>這些資料<strong>不會</strong>備份到 Google 雲端（App 已關閉 Android 備份），也不會傳給開發者或任何第三方。</p>
+<h2>網路連線</h2>
+<ul>
+<li>App 只連線到你輸入的 NAS 位址，用來登入、瀏覽資料夾、下載縮圖與相片。</li>
+<li>預設只允許加密連線 (https)。系統不信任的憑證 (自簽、用 IP 連線) 要你看過指紋並確認後才會連線。你也可以在設定開啟 http，我們不建議，因為密碼可能被同一網路上的人看到。</li>
+<li>登入有次數上限，避免在背景反覆登入你的 NAS。</li>
+<li>手機<strong>充電且連著 Wi-Fi</strong> 時，App 可能在背景（沒有打開畫面）連線到你的 NAS 下載縮圖，讓桌面小工具有新照片可以輪播；不會連到其他伺服器。登出後就不再執行。</li>
+<li>開啟 App 時自動補下載小工具用的圖片 (每次最多約 60 MB)，<strong>只在 Wi-Fi 等不計流量的網路上進行</strong>；你自己按「同步」「重新下載」或切換畫質時不限網路，在行動數據上會先告訴你大約會用多少流量。手機剩餘空間不足 1 GB 時會停止下載。熱點、部分 VPN 可能被系統視為不計流量。</li>
+<li>App 只讀取網路類型（是否計流量）與剩餘空間，不上傳。</li>
+<li>不會向開發者、廣告或分析服務送出任何資料。</li>
+</ul>
+<h2>權限</h2>
+<div class="t"><table><thead><tr><th>權限</th><th>用途</th></tr></thead><tbody>
+<tr><td>網路 (<code>INTERNET</code>, <code>ACCESS_NETWORK_STATE</code>)</td><td>連線到你的 NAS</td></tr>
+<tr><td>前景服務 (<code>FOREGROUND_SERVICE</code>, <code>..._SPECIAL_USE</code>) 與通知 (<code>POST_NOTIFICATIONS</code>)</td><td>在螢幕熄滅時預先換好小工具的下一張相片，需要一則常駐的低優先通知</td></tr>
+<tr><td>開機完成 (<code>RECEIVE_BOOT_COMPLETED</code>)</td><td>重開機後恢復輪播</td></tr>
+<tr><td>喚醒鎖 (<code>WAKE_LOCK</code>)</td><td>換圖與幻燈片播放時保持運作</td></tr>
+</tbody></table></div>
+<p>Mantel <strong>不會</strong>要求存取你的相簿、位置、聯絡人、相機或麥克風。</p>
+<h2>你的 NAS 上的相片</h2>
+<p>Mantel 只讀取。不會修改、刪除或上傳 NAS 上的任何檔案。</p>
+<h2>兒童</h2>
+<p>Mantel 不針對兒童，也不蒐集任何個人資料。</p>
+<h2>之後可能改變的地方</h2>
+<p>若未來加入地點顯示（需要把模糊化後的座標送到 Google 的地理編碼服務）、crash 回報或其他會讓資料離開手機的功能，會先更新這份政策與 Play 的 Data safety 表單，再發布。</p>
+<h2>聯絡</h2>
+<p><a href="mailto:soaringbit@gmail.com">soaringbit@gmail.com</a></p>
+</body></html>
