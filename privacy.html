@@ -7,17 +7,22 @@
 <h1>Mantel 隱私權政策（草稿）</h1>
 <p>生效日期：（上架時填寫）</p>
 <h2>一句話</h2>
-<p>Mantel 只連線到<strong>你自己指定的 NAS</strong>，沒有開發者的伺服器，不收集使用資料，沒有廣告、分析或 crash 回報 SDK。</p>
+<p>Mantel 只連線到<strong>你自己指定的 NAS 與（若你連線）你自己的 Google 雲端硬碟</strong>，沒有開發者的伺服器（資料只在你的手機與你自己的來源之間傳輸），不收集使用資料，沒有廣告、分析或 crash 回報 SDK。</p>
 <h2>Mantel 存在你手機上的資料</h2>
 <div class="t"><table><thead><tr><th>資料</th><th>內容</th><th>存放位置</th><th>何時刪除</th></tr></thead><tbody>
 <tr><td>NAS 網址、帳號、密碼、登入憑證 (sid)</td><td>讓 App 自動重新登入</td><td>Android 加密儲存 (Keystore)</td><td>登出時</td></tr>
+<tr><td>本機 NAS 資料的擁有者記號</td><td>本機留著的 NAS 照片資料屬於哪個 NAS 帳號：帳號、這個帳號用過的網址（最多 8 個）、NAS 序號（讀得到才有）的<strong>雜湊</strong>，不是明文。每次登入與開 App 更新；重新登入時比對：同一個人接續，帳號或 NAS 不同先清掉舊的（清不掉就不登入），帳號相同但換了網址又無法確認時問你「是同一台 NAS 嗎」</td><td>Android 加密儲存 (Keystore)</td><td>「登出並清除」、清除 NAS 資料時、解除安裝</td></tr>
 <tr><td>憑證指紋</td><td>你按「信任這台 NAS」的自簽憑證 SHA-256</td><td>同上</td><td>登出時</td></tr>
-<tr><td>播放清單</td><td>你勾選資料夾裡的相片檔名、路徑、日期</td><td>App 私有的 SQLite 資料庫</td><td>登出時或解除安裝</td></tr>
-<tr><td>縮圖與大圖暫存</td><td>從你的 NAS 下載的小工具圖片（預設高清約 1280px，可改標準 320px；看大圖時下載的高清預覽會直接當小工具圖片，不存兩份）、檢視器的預覽與原圖</td><td>App 私有資料夾 (小工具圖片與大圖暫存各有容量上限，可在設定 → 儲存空間調整，大圖暫存預設 300 MB、最多 2 GB)</td><td>設定頁「清空」、登出或解除安裝；移除資料夾時一併刪掉該資料夾照片的小工具圖片與大圖暫存</td></tr>
-<tr><td>畫質索引</td><td>哪些小工具圖片是高清的照片編號 (<code>widget_photo_quality.json</code>)</td><td>App 私有資料夾</td><td>清除暫存圖片、登出或解除安裝</td></tr>
+<tr><td>已通過系統驗證的主機</td><td>曾通過系統憑證驗證的 NAS 位址與連接埠 (只有 host:port，不含帳密)；之後這個位址的憑證若變成系統不信任，會以「憑證變了」的強烈警告處理，不會當成第一次連線</td><td>同上</td><td>登出時</td></tr>
+<tr><td>播放清單</td><td>你勾選資料夾裡的相片檔名、路徑（Drive 為檔案 ID、手機為系統文件位址）、日期（含「只播這段期間」之外、暫時不播的照片）</td><td>App 私有的 SQLite 資料庫</td><td>選「登出並清除」時清 NAS 的（只選「登出」會保留，照片仍留在這支手機）；Drive 的在中斷連線或授權失效時清；手機的保留，到從清單移除該資料夾才清；或解除安裝</td></tr>
+<tr><td>不再顯示的照片</td><td>你按「不要再顯示這張」的照片：照片編號、檔名、日期、來自哪個勾選資料夾（只有你在 App 裡操作的結果，不含照片內容）</td><td>App 私有的 SQLite 資料庫</td><td>「登出並清除」時全清（只清 NAS 的，若還有其他來源）；單純「登出」會保留；中斷 Google 雲端硬碟時清雲端硬碟的；你在來源分頁「已略過的照片」按「復原」時清該張。取消勾選資料夾、「全部清除」不會清（勾回同一個資料夾仍不顯示）</td></tr>
+<tr><td>縮圖與大圖暫存</td><td>從你的 NAS 或 Google 雲端硬碟下載的小工具圖片（預設高清約 1280px，可改標準 320px；看大圖時下載的高清預覽會直接當小工具圖片，不存兩份）、檢視器的預覽與原圖</td><td>App 私有資料夾 (小工具圖片與大圖暫存各有容量上限，可在設定 → 儲存空間調整，大圖暫存預設 300 MB、最多 2 GB)</td><td>設定頁「清空」、登出 NAS（檢視器的預覽與原圖一律清；小工具圖片在選「登出並清除」時清，只選「登出」會保留）（Drive 的在中斷連線或授權失效時清）或解除安裝；移除資料夾時一併刪掉該資料夾照片的小工具圖片與大圖暫存</td></tr>
+<tr><td>畫質索引</td><td>哪些小工具圖片是高清的照片編號 (<code>widget_photo_quality.json</code>)</td><td>App 私有資料夾</td><td>清除暫存圖片、「登出並清除」或解除安裝</td></tr>
 <tr><td>設定</td><td>外觀、輪播間隔、圖片畫質 (<code>pref_widget_quality</code>)、小工具圖片與大圖暫存上限 (<code>widget_max_cache_mb</code>、<code>viewer_max_cache_mb</code>) 等</td><td>App 私有偏好設定</td><td>解除安裝</td></tr>
-<tr><td>已選資料夾</td><td>你勾選的資料夾名稱、NAS 路徑與照片數</td><td>App 私有偏好設定</td><td>登出時</td></tr>
-<tr><td>小工具目前照片</td><td>目前顯示的縮圖路徑、照片編號與日期</td><td>App 私有偏好設定 (<code>HomeWidgetPreferences</code>)</td><td>登出時清空</td></tr>
+<tr><td>Google 登入</td><td>若你連線 Google 雲端硬碟：長期授權碼 (refresh token)；短效的存取碼只在記憶體。Mantel 只申請讀檔權限，不讀取也不儲存你的信箱位址或姓名</td><td>加密儲存 (Keystore)</td><td>按「中斷連線」(同時請 Google 撤銷授權；離線時只清本機)，或授權被撤銷／過期時自動清除。與 NAS 登入各自獨立，登出 NAS 不會中斷 Drive</td></tr>
+<tr><td>已選資料夾</td><td>你勾選的資料夾名稱、路徑（Drive 為資料夾 ID、手機資料夾為系統給的資料夾位址）與照片數</td><td>App 私有偏好設定</td><td>選「登出並清除」時清 NAS 的（只選「登出」會保留）；中斷 Drive 或 Drive 授權失效時清 Drive 的；從清單移除手機資料夾時清該資料夾的</td></tr>
+<tr><td>小工具目前照片</td><td>目前顯示的縮圖路徑、照片編號與日期</td><td>App 私有偏好設定 (<code>HomeWidgetPreferences</code>)</td><td>登出 NAS 時清 NAS 的；Drive 的在中斷連線或授權失效時清</td></tr>
+<tr><td>「Drive 授權已過期」提示旗標</td><td>一個是／否的值，不含個人資料 (<code>pref_drive_auth_expired</code>)</td><td>App 私有偏好設定</td><td>重新連線或中斷連線時；或解除安裝</td></tr>
 <tr><td>登入次數紀錄</td><td>最近幾次登入的時間點與成功與否 (不含帳號、密碼、網址)，用來限制登入頻率</td><td>App 私有偏好設定 (<code>pref_login_governor</code>)</td><td>解除安裝 (登出不清，避免登出再登入繞過限制)</td></tr>
 <tr><td>下載中的暫存檔</td><td>還沒下載完的縮圖 / 大圖 (<code>.part</code>)</td><td>同縮圖 / 大圖資料夾</td><td>下載完成後改名；殘留的超過 1 小時會被清掉，登出與清空快取時一併刪除</td></tr>
 </tbody></table></div>
@@ -25,27 +30,52 @@
 <h2>網路連線</h2>
 <ul>
 <li>App 只連線到你輸入的 NAS 位址，用來登入、瀏覽資料夾、下載縮圖與相片。</li>
-<li>預設只允許加密連線 (https)。系統不信任的憑證 (自簽、用 IP 連線) 要你看過指紋並確認後才會連線。你也可以在設定開啟 http，我們不建議，因為密碼可能被同一網路上的人看到。</li>
+<li>預設只允許加密連線 (https)。系統不信任的憑證 (自簽、用 IP 連線) 只有在第一次連線時，要你看過指紋並確認後才會連線；已釘選的憑證換了會再問一次，曾通過系統驗證的位址憑證變了則顯示強烈警告。你也可以在設定開啟 http，我們不建議，因為密碼可能被同一網路上的人看到。</li>
+<li>若你連線 Google 雲端硬碟：詳見下方「Google 雲端硬碟」一節。</li>
 <li>登入有次數上限，避免在背景反覆登入你的 NAS。</li>
-<li>手機<strong>充電且連著 Wi-Fi</strong> 時，App 可能在背景（沒有打開畫面）連線到你的 NAS 下載縮圖，讓桌面小工具有新照片可以輪播；不會連到其他伺服器。登出後就不再執行。</li>
+<li>手機<strong>充電且連著 Wi-Fi</strong> 時，App 可能在背景（沒有打開畫面）連線到你的 NAS 下載縮圖（Drive 同理，只連到 Google），讓桌面小工具有新照片可以輪播；不會連到其他伺服器。登出後就不再執行。</li>
 <li>開啟 App 時自動補下載小工具用的圖片 (每次最多約 60 MB)，<strong>只在 Wi-Fi 等不計流量的網路上進行</strong>；你自己按「同步」「重新下載」或切換畫質時不限網路，在行動數據上會先告訴你大約會用多少流量。手機剩餘空間不足 1 GB 時會停止下載。熱點、部分 VPN 可能被系統視為不計流量。</li>
 <li>App 只讀取網路類型（是否計流量）與剩餘空間，不上傳。</li>
 <li>不會向開發者、廣告或分析服務送出任何資料。</li>
+<li>地點小字（若啟用）完全在手機上用內建的 GeoNames 資料（https://www.geonames.org ，CC BY 4.0）查最近城市，沒有座標離開手機。</li>
+</ul>
+<h2>Google 雲端硬碟</h2>
+<p>只有你在 App 裡按「連線 Google 雲端硬碟」才會啟用；不連線就完全不會碰 Google。</p>
+<ul>
+<li><strong>權限範圍</strong>：唯讀的 <code>drive.readonly</code>。Mantel 不能修改、刪除、上傳或分享你 Drive 裡的任何檔案。Google 把這個範圍列為「受限範圍」，因為它技術上能讀你 Drive 裡所有檔案；選資料夾時 App 會列出你 Drive 的資料夾名稱供你挑選；相片只會列出與下載你勾選的資料夾，其餘不會碰。</li>
+<li><strong>登入方式</strong>：在系統瀏覽器完成 Google 登入，Mantel 看不到你的 Google 密碼。</li>
+<li><strong>會讀取什麼</strong>：你勾選的資料夾裡的檔案清單（檔名、ID、類型、大小、建立與拍攝時間）、Google 提供的縮圖，以及你播放、檢視時才下載的相片原檔。</li>
+<li><strong>資料去哪</strong>：只在 Google 與你的手機之間傳輸（Google 的登入、API 與縮圖／下載網域），不經過開發者的伺服器——我們沒有伺服器。照片與其中繼資料不會傳給開發者或任何第三方，也不會被備份。</li>
+<li><strong>存在手機的東西</strong>：只有長期授權碼（加密儲存）；播放清單、縮圖與暫存的存放與刪除方式見上表。</li>
+<li><strong>授權失效</strong>：授權被撤銷，或過期（Mantel 目前處於 Google 的測試階段，授權約 7 天會到期），下次同步、背景補圖或開啟 App 時 Mantel 會清掉本機授權碼，並移除 Drive 的已選資料夾、播放清單照片與暫存圖片，Drive 卡片顯示「授權已過期」；NAS 的照片不受影響，重新連線即可。</li>
+<li><strong>如何中斷</strong>：App 內「中斷連線」會請 Google 撤銷授權並清掉本機所有 Drive 資料；離線時只清本機，授權仍可到 Google 帳號 →「安全性」→「第三方存取」手動移除。解除安裝 App 也會刪除所有本機資料。</li>
+<li><strong>有限使用 (Limited Use)</strong>：Mantel's use and transfer to any other app of information received from Google APIs will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements. 白話：這些資訊只用來提供你看得到的相片輪播功能；不轉讓給第三方、不用於廣告或信用評估、不給人工閱讀（除非你同意、為了安全或法律要求）；也不保存在任何伺服器上，刪除時機見上方各條。</li>
+</ul>
+<h2>這支手機的資料夾</h2>
+<p>只有你在「新增資料夾」選了「這支手機」才會啟用。</p>
+<ul>
+<li><strong>瀏覽照片不需要相簿或儲存空間權限</strong>（只有 Android 8～9 在「存到手機」時才會問儲存空間，見下方權限表）：資料夾用 Android 系統的資料夾選擇器挑選，Mantel 只拿到你選的那個資料夾（含子資料夾）的<strong>唯讀</strong>權限，看不到手機上的其他檔案，也不能修改、刪除或上傳任何檔案。</li>
+<li><strong>資料去哪</strong>：照片只在手機內讀取，縮圖與你開啟過的原圖暫存在 App 私有資料夾（可在設定 → 儲存空間清除）；沒有任何資料離開手機。你在檢視器選「存原圖到手機」（NAS 與雲端硬碟的照片才有）時，原圖（含拍攝資訊與位置）會存進相簿的 Pictures/Mantel，其他有相簿權限的 App 讀得到；這是你自己的檔案，登出與清除快取都不會刪，要刪請用相簿。</li>
+<li><strong>如何移除</strong>：在「照片」分頁該資料夾的 ⋮ 選「不再播放」，Mantel 會把系統給的權限一併還回去。登出 NAS 不會動手機資料夾。解除安裝 App 也會刪除所有本機資料。</li>
 </ul>
 <h2>權限</h2>
 <div class="t"><table><thead><tr><th>權限</th><th>用途</th></tr></thead><tbody>
-<tr><td>網路 (<code>INTERNET</code>, <code>ACCESS_NETWORK_STATE</code>)</td><td>連線到你的 NAS</td></tr>
-<tr><td>前景服務 (<code>FOREGROUND_SERVICE</code>, <code>..._SPECIAL_USE</code>) 與通知 (<code>POST_NOTIFICATIONS</code>)</td><td>在螢幕熄滅時預先換好小工具的下一張相片，需要一則常駐的低優先通知</td></tr>
+<tr><td>手機資料夾</td><td>不需要任何權限：用系統資料夾選擇器取得你選的資料夾的唯讀存取</td></tr>
+<tr><td>網路 (<code>INTERNET</code>, <code>ACCESS_NETWORK_STATE</code>)</td><td>連線到你的 NAS 與 Google 雲端硬碟；判斷目前是不是 Wi-Fi（自動補圖只在不計流量的網路）</td></tr>
+<tr><td>前景服務 (<code>FOREGROUND_SERVICE</code>, <code>..._SPECIAL_USE</code>) 與通知 (<code>POST_NOTIFICATIONS</code>)</td><td>在螢幕熄滅時預先換好小工具的下一張相片，需要一則常駐的低優先通知；Android 13 以上第一次開啟 App 時會詢問通知權限，拒絕也能使用</td></tr>
 <tr><td>開機完成 (<code>RECEIVE_BOOT_COMPLETED</code>)</td><td>重開機後恢復輪播</td></tr>
-<tr><td>喚醒鎖 (<code>WAKE_LOCK</code>)</td><td>換圖與幻燈片播放時保持運作</td></tr>
+<tr><td>儲存空間 (<code>WRITE_EXTERNAL_STORAGE</code>，只在 Android 8～9)</td><td>你選「存到手機」時，把原圖寫進相簿的 Pictures/Mantel；Android 10 以上不需要這個權限。Mantel 只會寫入 Pictures/Mantel</td></tr>
+<tr><td>喚醒鎖 (<code>WAKE_LOCK</code>)</td><td>螢幕熄滅、預先換好下一張的那幾秒保持運作（幻燈片的螢幕常亮不需要這個權限）</td></tr>
 </tbody></table></div>
+<p>另外，App 註冊了 <code>nasphoto://</code> 連結，只用來讓桌面小工具開啟檢視頁或設定頁，不會因此傳送或儲存任何資料。</p>
 <p>Mantel <strong>不會</strong>要求存取你的相簿、位置、聯絡人、相機或麥克風。</p>
-<h2>你的 NAS 上的相片</h2>
-<p>Mantel 只讀取。不會修改、刪除或上傳 NAS 上的任何檔案。</p>
+<h2>你的 NAS 與 Drive 上的相片</h2>
+<p>Mantel 只讀取。不會修改、刪除或上傳 NAS 或 Google 雲端硬碟上的任何檔案。</p>
 <h2>兒童</h2>
 <p>Mantel 不針對兒童，也不蒐集任何個人資料。</p>
 <h2>之後可能改變的地方</h2>
-<p>若未來加入地點顯示（需要把模糊化後的座標送到 Google 的地理編碼服務）、crash 回報或其他會讓資料離開手機的功能，會先更新這份政策與 Play 的 Data safety 表單，再發布。</p>
+<p>照片檔頭（以及 Google 雲端硬碟回傳的相機資料）裡的拍攝日期、GPS 座標與相機參數（機型、ISO、焦距、光圈、快門、曝光補償、解析度）會被讀出、只存在手機本機的資料庫，登出或清除快取時刪除，不會送出。地點標籤（若加入）會在手機上離線計算，不會把座標送出去。若未來加入 crash 回報或其他會讓資料離開手機的功能，會先更新這份政策與 Play 的 Data safety 表單，再發布。</p>
+<p>在照片詳細資料點「位置」時，座標會交給你手機上的地圖 App 開啟；Mantel 本身不載入地圖、不送出座標，是否把座標交給地圖 App 由你點擊決定。</p>
 <h2>聯絡</h2>
 <p><a href="mailto:soaringbit@gmail.com">soaringbit@gmail.com</a></p>
 </body></html>
